@@ -220,14 +220,22 @@ carList.addEventListener('click', function(event) {
             const distance = parseFloat(document.getElementById('distance').value);
             const fuelEfficiency = parseFloat(document.getElementById('fuelEfficiency').value);
             const fuelPrice = parseFloat(document.getElementById('fuelPrice').value);
-
+        
             if (!isNaN(distance) && !isNaN(fuelEfficiency) && !isNaN(fuelPrice)) {
-                const fuelCost = (distance / fuelEfficiency) * fuelPrice;
-                document.getElementById('result').textContent = `주행 비용: ₩${fuelCost.toFixed(2)}`;
+                let fuelCost = (distance / fuelEfficiency) * fuelPrice;
+                // 소수점 제거
+                fuelCost = Math.floor(fuelCost);
+                // 10원 단위로 반올림
+                fuelCost = Math.round(fuelCost / 10) * 10;
+                // 쉼표 추가하여 숫자 표시
+                fuelCost = fuelCost.toLocaleString();
+                document.getElementById('result').textContent = `주행 비용: ₩ ${fuelCost}`;
             } else {
                 alert('올바른 숫자를 입력하세요.');
             }
         }
+        
+        
 
         const distanceInput = document.getElementById('distance');
         const add10000Button = document.getElementById('add10000');
