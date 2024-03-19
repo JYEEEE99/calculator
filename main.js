@@ -60,7 +60,7 @@
                     "3.8L 가솔린": 7.75,
                     "2.2L 디젤": 11.75
                 },
-                "그랜드 스타렉스": {
+                "스타렉스(스타리아)": {
                     "2.5L 디젤": 10.75,
                     "2.2L 디젤": 12.25
                 },
@@ -103,41 +103,41 @@
                     "GLS580": 8.0
                 },
                 "C-Class Coupe": {
-                    "C200 Coupe": 10.5,
-                    "C300 Coupe": 10.0
+                    "C200": 10.5,
+                    "C300": 10.0
                 },
                 "E-Class Coupe": {
-                    "E200 Coupe": 10.0,
-                    "E300 Coupe": 9.5
+                    "E200": 10.0,
+                    "E300": 9.5
                 }
             },
             "Audi": {
                 "A3": {
-                    "A3 Sportback": 12.0,
-                    "A3 Sedan": 11.5
+                    "Sportback": 12.0,
+                    "Sedan": 11.5
                 },
                 "A4": {
-                    "A4 Sedan": 11.0,
-                    "A4 Avant": 10.5
+                    "Sedan": 11.0,
+                    "Avant": 10.5
                 },
                 "A6": {
-                    "A6 Sedan": 10.5,
-                    "A6 Avant": 10.0
+                    "Sedan": 10.5,
+                    "Avant": 10.0
                 },
                 "A8": {
-                    "A8 Sedan": 9.0
+                    "Sedan": 9.0
                 },
                 "Q3": {
-                    "Q3": 11.0
+                    "": 11.0
                 },
                 "Q5": {
-                    "Q5": 10.5
+                    "": 10.5
                 },
                 "Q7": {
-                    "Q7": 9.5
+                    "": 9.5
                 },
                 "Q8": {
-                    "Q8": 9.0
+                    "": 9.0
                 }
             },
             "BMW": {
@@ -154,16 +154,16 @@
                     "740i": 9.0
                 },
                 "X1": {
-                    "X1 sDrive18i": 11.5,
-                    "X1 sDrive20i": 11.0
+                    "sDrive18i": 11.5,
+                    "sDrive20i": 11.0
                 },
                 "X3": {
-                    "X3 sDrive20i": 11.0,
-                    "X3 xDrive20i": 10.5
+                    "sDrive20i": 11.0,
+                    "xDrive20i": 10.5
                 },
                 "X5": {
-                    "X5 sDrive40i": 9.5,
-                    "X5 xDrive40i": 9.0
+                    "sDrive40i": 9.5,
+                    "xDrive40i": 9.0
                 },
                 "4 Series": {
                     "420i Coupe": 10.5,
@@ -191,7 +191,7 @@
                 for (const type in carModels) {
                     const fuelEfficiency = carModels[type];
                     const listItem = document.createElement('li');
-                    listItem.textContent = `${model} ${type}: ${fuelEfficiency} km/ℓ`;
+                    listItem.textContent = `${model} ${type} : ${fuelEfficiency} km/ℓ`;
                     listItem.setAttribute('data-fuel-efficiency', fuelEfficiency);
                     listItem.addEventListener('click', function() {
                         fuelEfficiencyInput.value = fuelEfficiency;
