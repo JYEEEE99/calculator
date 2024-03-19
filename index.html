@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>계산기</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div class="container">
+    <h2>계산기</h2>
+    <form id="fuelCostForm">
+        <div>
+            <label for="distance">주행거리 (KM):</label>
+            <input type="number" id="distance" name="distance" required>
+        </div>
+        <div>
+            <label for="fuelEfficiency">연비 (리터당):</label>
+            <input type="number" id="fuelEfficiency" name="fuelEfficiency" required>
+        </div>
+        <div>
+            <label for="fuelPrice">기름값 (리터당):</label>
+            <input type="number" id="fuelPrice" name="fuelPrice" required>
+        </div>
+        <button type="button" onclick="calculateFuelCost()">계산하기</button>
+    </form>
+    <div id="result">예상 유류비: </div>
+</div>
+    <script>
+        function calculateFuelCost() {
+            var distance = document.getElementById('distance').value;
+            var fuelEfficiency = document.getElementById('fuelEfficiency').value;
+            var fuelPrice = document.getElementById('fuelPrice').value;
+
+            var cost = (distance / fuelEfficiency) * fuelPrice;
+
+            var formattedCost = new Intl.NumberFormat('ko-KR').format(Math.round(cost));
+            
+            document.getElementById('result').innerHTML = '예상 유류비: ₩' + formattedCost;
+        }
+    </script>
+</body>
+</html>
