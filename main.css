@@ -1,3 +1,4 @@
+* {box-sizing: border-box;}
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #333;
@@ -7,11 +8,10 @@ body {
 }
 .container {
     width: 400px;
-    display: flex;
-    flex-direction: column;
     margin: 0 auto;
+    padding-top: 30px;
 }
-h2 {
+h1 {
     color: #FFF;
 }
 form {
@@ -32,9 +32,11 @@ button {
     background-color: #56a9f9;
     color: #FFF;
     border: none;
-    padding: 10px 20px;
+    padding: 5px 10px;
+    height: 40px;
     cursor: pointer;
     border-radius: 4px;
+    font-size: 13px;
     transition: background-color 0.3s;
 }
 button:hover {
@@ -42,4 +44,22 @@ button:hover {
 }
 #result {
     font-size: 1.2em;
+}
+.car-category {
+    margin-bottom: 20px;
+}
+.car-list {
+    list-style-type: none;
+    padding: 0;
+}
+.car-list li {
+    cursor: pointer;
+    background-color: #666;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    transition: background-color 0.3s;
+}
+.car-list li:hover {
+    background-color: #555;
 }
