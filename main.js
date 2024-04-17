@@ -304,3 +304,4 @@ function adjustDistance(value) {
     distanceInput.value = currentDistance + value;
   }
 }
+
