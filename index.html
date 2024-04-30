@@ -36,8 +36,18 @@
             <label for="fuelPrice">기름값 (리터당):</label>
             <input type="number" id="fuelPrice" name="fuelPrice" required>
         </div>
-        <h3>주유소 평균 가격 정보</h3>
-            <div id="averagePrice"></div>
+        <h3>유가 정보 </h3>
+        <p>(고급 휘발유 = 휘발유 + 200)</p>
+        <div class="oil__box">
+            <div id="gasolinePrice">Loading gasoline price...</div>
+        </div>
+        <div class="oil__box">
+            <div id="dieselPrice">Loading diesel price...</div>
+        </div>
+        <div class="oil__box">
+            <div id="lpgPrice">Loading LPG price...</div>
+        </div>
+            
         <button type="button" onclick="calculateFuelCost()" class="btn">계산하기</button>
     </form>
     <div id="result"></div>

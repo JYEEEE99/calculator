@@ -1,48 +1,78 @@
-document.addEventListener("DOMContentLoaded", function () {
-  fetchGasPrices();
-});
+async function fetchFuelPrices() {
+  const url =
+    "https://data.ex.co.kr/openapi/business/curStateStation?key=test&type=xml&numOfRows=10&pageNo=1";
+  try {
+    const response = await fetch(url);
+    const data = await response.text(); // Get the response as text
 
-function fetchGasPrices() {
-  const url = "https://openapi.gg.go.kr/GASSTATIONAVGPRICE";
-  const key = "bb3c36b5410944f08f6057aaeaf93740";
-  const requestURL = `${url}?KEY=${key}&Type=xml&pIndex=1&pSize=100`;
+    // Parsing the XML response
+    const parser = new DOMParser();
+    const xml = parser.parseFromString(data, "application/xml");
 
-  fetch(requestURL)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.text();
-    })
-    .then((data) => {
-      const parser = new DOMParser();
-      const xmlData = parser.parseFromString(data, "application/xml");
-      const avgPrices = xmlData.querySelectorAll("AVG_PC");
-
-      const container = document.getElementById("averagePrice");
-      container.innerHTML = ""; // Clear previous results
-
-      const fuelTypes = ["고급 휘발유", "경유", "휘발유"]; // Fuel types for index 0, 1, 2
-
-      avgPrices.forEach((avgPrice, index) => {
-        if (index === 0 || index === 1 || index === 2) {
-          // Only show for index 0, 1, 2
-          const price = document.createElement("div");
-          const priceValue = Math.floor(avgPrice.textContent); // Remove decimal part
-          price.textContent = `${fuelTypes[index]} 평균 가격: ${priceValue}`;
-
-          const button = document.createElement("button");
-          button.textContent = "입력";
-          button.onclick = function () {
-            document.getElementById("fuelPrice").value = priceValue; // Set value to input on button click
-          };
-
-          price.appendChild(button);
-          container.appendChild(price);
+    // Function to find the first valid price
+    function findFirstValidPrice(prices) {
+      for (let i = 0; i < prices.length; i++) {
+        const price = parseFloat(prices[i].textContent.replace(/[^\d.]/g, ""));
+        if (!isNaN(price)) {
+          return price;
         }
-      });
-    })
-    .catch((error) => {
-      console.error("Error fetching data:", error);
-    });
+      }
+      return null;
+    }
+
+    // Extracting and displaying gasoline prices
+    const gasolinePrices = xml.getElementsByTagName("gasolinePrice");
+    const gasolinePriceElement = document.getElementById("gasolinePrice");
+    const gasolinePriceValue = findFirstValidPrice(gasolinePrices);
+    gasolinePriceElement.innerHTML =
+      "가솔린 가격: " +
+      (gasolinePriceValue !== null
+        ? `<span>${gasolinePriceValue}원</span>`
+        : "<span>정보 없음</span>");
+    createInputButton(gasolinePriceElement, "gasoline", gasolinePriceValue);
+
+    // Extracting and displaying diesel prices
+    const dieselPrices = xml.getElementsByTagName("diselPrice");
+    const dieselPriceElement = document.getElementById("dieselPrice");
+    const dieselPriceValue = findFirstValidPrice(dieselPrices);
+    dieselPriceElement.innerHTML =
+      "디젤 가격: " +
+      (dieselPriceValue !== null
+        ? `<span>${dieselPriceValue}원</span>`
+        : "<span>정보 없음</span>");
+    createInputButton(dieselPriceElement, "diesel", dieselPriceValue);
+
+    // Extracting and displaying LPG prices
+    const lpgPrices = xml.getElementsByTagName("lpgPrice");
+    const lpgPriceElement = document.getElementById("lpgPrice");
+    const lpgPriceValue = findFirstValidPrice(lpgPrices);
+    lpgPriceElement.innerHTML =
+      "LPG 가격: " +
+      (lpgPriceValue !== null
+        ? `<span>${lpgPriceValue}원</span>`
+        : "<span>정보 없음</span>");
+    createInputButton(lpgPriceElement, "lpg", lpgPriceValue);
+  } catch (error) {
+    console.error("Error fetching fuel prices:", error);
+    document.getElementById("gasolinePrice").textContent =
+      "Failed to load gasoline price";
+    document.getElementById("dieselPrice").textContent =
+      "Failed to load diesel price";
+    document.getElementById("lpgPrice").textContent =
+      "Failed to load LPG price";
+  }
 }
+
+// Function to create input button
+function createInputButton(element, fuelType, defaultValue) {
+  const inputButton = document.createElement("button");
+  inputButton.textContent = "입력";
+  inputButton.addEventListener("click", function () {
+    // Set input field value
+    document.getElementById("fuelPrice").value = defaultValue || "";
+  });
+  // Move input button to the right
+  element.insertAdjacentElement("afterend", inputButton);
+}
+
+fetchFuelPrices();

@@ -71,14 +71,15 @@ h3 {margin: 5px 0;}
 .btn {
     margin-bottom: 20px;
 }
-#averagePrice div {
-    margin-bottom: 3px; 
-    display: flex;
-    justify-content: space-between; 
-    align-items: center;
+#lpgPrice {
+    margin-bottom: 20px;
 }
-
-#averagePrice button {
-    padding: 0 18px;
-    font-size: 13px;
+.oil__box {
+    display: flex;
+    justify-content: space-between;
+}
+.oil__box span {
+    font-size: 20px;
+    height: 20px;
+    line-height: 20px;
 }
